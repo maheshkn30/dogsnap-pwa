@@ -1,11 +1,9 @@
-Writing
-
 # 🐶 DogSnap PWA
 
 A simple, lightweight Progressive Web App that fetches a random dog photo every time you tap a button.\
 Built with pure HTML, CSS, and vanilla JavaScript — no frameworks, no build tools.
 
-**Live Demo →****maheshkn30.github.io/dogsnap-pwa**
+**Live Demo** → **maheshkn30.github.io/dogsnap-pwa**
 
 ---
 
