@@ -9,7 +9,14 @@ Built with pure HTML, CSS, and vanilla JavaScript — no frameworks, no build to
 
 ## 🤔 What is a PWA?
 
-A **Progressive Web App (PWA)** is a regular website that behaves like a native mobile or desktop app.
+A **Progressive Web App (PWA)** is a website that looks, feels, and acts like a mobile app installed from an app store.
+It is essentially a regular website built with web technologies (HTML, CSS, JavaScript), but enhanced with special code that lets users install it to their phone or desktop home screen, receive push notifications, and use it completely offline.
+
+Why People Use Them
+
+• No App Stores: Users can download the app straight from their browser without dealing with Google Play or the Apple App Store.
+• Extremely Lightweight: They take up a fraction of the storage space required by traditional mobile apps.
+• Instant Updates: Every time the user opens the app while connected to the internet, it updates automatically.
 
 Think of it this way:
 
@@ -18,9 +25,6 @@ Think of it this way:
 | Opens in browser      | Downloaded from app store | Opens in browser OR installs like an app |
 | No offline support    | Works offline             | Works offline ✓                          |
 | Can't be installed    | Installed on device       | Can be installed on device ✓             |
-| Always needs internet | Works without internet    | Works without internet ✓                 |
-
-In short — **a PWA is a website that you can install and use like an app, even without internet.**
 
 ---
 
@@ -118,26 +122,6 @@ That's it. Three files. No dependencies.
 
 ---
 
-## 🚀 Run It Locally
-
-PWAs require a local server (not `file://`). Use one of these:
-
-**Node.js**
-
-```bash
-npx serve .
-```
-
-**Python**
-
-```bash
-python -m http.server 8080
-```
-
-Then open `http://localhost:8080` in Chrome.
-
----
-
 ## ✅ Lighthouse PWA Checklist
 
 This app is built to pass Chrome's Lighthouse PWA audit:
@@ -153,26 +137,6 @@ This app is built to pass Chrome's Lighthouse PWA audit:
 
 To run the audit: **Chrome DevTools → Lighthouse tab → Progressive Web App → Analyze**
 
----
-
-## 🌐 Deploy Your Own
-
-1. Fork this repo
-2. Go to **Settings → Pages**
-3. Set source to `main` branch, `/ (root)` folder
-4. Visit `https://your-username.github.io/dogsnap-pwa/`
-
----
-
-## 📡 API Used
-
-**[Dog CEO API](https://dog.ceo/dog-api/)**
-
-- Free, no authentication required
-- Endpoint used: `GET https://dog.ceo/api/breeds/image/random`
-- Returns a random dog image URL and status
-
----
 
 ## 🛠️ Built With
 
