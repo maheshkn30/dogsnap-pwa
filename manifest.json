@@ -1,0 +1,36 @@
+{
+  "name": "DogSnap - Random Dog Photos",
+  "short_name": "DogSnap",
+  "description": "A lightweight PWA that fetches random dog photos from the Dog CEO API.",
+  "start_url": "/dogsnap-pwa/",
+  "scope": "/dogsnap-pwa/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#e8f4ff",
+  "theme_color": "#007bff",
+  "lang": "en-US",
+  "categories": ["entertainment", "lifestyle"],
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/007bff/ffffff?text=🐶",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://placehold.co/512x512/007bff/ffffff?text=🐶",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "New Dog",
+      "short_name": "New Dog",
+      "description": "Fetch a fresh random dog photo",
+      "url": "/dogsnap-pwa/"
+    }
+  ]
+}
