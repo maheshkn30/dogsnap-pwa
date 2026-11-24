@@ -12,34 +12,33 @@
 // Bump this version string whenever you update the cached assets.
 // The install step will populate a new cache and the activate step
 // will delete the old one, ensuring users always get the latest shell.
-const CACHE_VERSION   = 'v1';
-const SHELL_CACHE     = `dogsnap-shell-${CACHE_VERSION}`;
-const API_CACHE       = `dogsnap-api-${CACHE_VERSION}`;
+const CACHE_VERSION = "v2";
+const SHELL_CACHE = `dogsnap-shell-${CACHE_VERSION}`;
+const API_CACHE = `dogsnap-api-${CACHE_VERSION}`;
 
 // App-shell assets to pre-cache during installation.
 // These are the files that must load for the UI to be usable offline.
 const SHELL_ASSETS = [
-  './',
-  './index.html',
-  './manifest.json',
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png",
 ];
 
 // URL patterns treated as "API / live data" — handled with Network-First.
-const API_ORIGINS = [
-  'https://dog.ceo',
-  'https://images.dog.ceo',
-];
+const API_ORIGINS = ["https://dog.ceo", "https://images.dog.ceo"];
 
 /* ── Install ─────────────────────────────────────────────── */
 
-self.addEventListener('install', event => {
-  console.log('[SW] Installing…');
+self.addEventListener("install", (event) => {
+  console.log("[SW] Installing…");
 
   event.waitUntil(
     caches
       .open(SHELL_CACHE)
-      .then(cache => {
-        console.log('[SW] Pre-caching app shell:', SHELL_ASSETS);
+      .then((cache) => {
+        console.log("[SW] Pre-caching app shell:", SHELL_ASSETS);
         // addAll() fetches each URL and stores the response.
         // If any request fails, the whole install is aborted.
         return cache.addAll(SHELL_ASSETS);
@@ -48,55 +47,56 @@ self.addEventListener('install', event => {
         // Skip the waiting phase so this SW activates immediately
         // without waiting for existing tabs to close.
         return self.skipWaiting();
-      })
+      }),
   );
 });
 
 /* ── Activate ────────────────────────────────────────────── */
 
-self.addEventListener('activate', event => {
-  console.log('[SW] Activating…');
+self.addEventListener("activate", (event) => {
+  console.log("[SW] Activating…");
 
   event.waitUntil(
     caches
       .keys()
-      .then(cacheNames => {
+      .then((cacheNames) => {
         const validCaches = [SHELL_CACHE, API_CACHE];
 
         // Delete every cache that belongs to this SW but is no longer current.
         return Promise.all(
           cacheNames
-            .filter(name =>
-              name.startsWith('dogsnap-') && !validCaches.includes(name)
+            .filter(
+              (name) =>
+                name.startsWith("dogsnap-") && !validCaches.includes(name),
             )
-            .map(name => {
-              console.log('[SW] Deleting old cache:', name);
+            .map((name) => {
+              console.log("[SW] Deleting old cache:", name);
               return caches.delete(name);
-            })
+            }),
         );
       })
       .then(() => {
         // Take control of all open clients immediately instead of
         // waiting for the next navigation.
         return self.clients.claim();
-      })
+      }),
   );
 });
 
 /* ── Fetch ───────────────────────────────────────────────── */
 
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", (event) => {
   const { request } = event;
 
   // Only handle GET requests — never intercept POST/PUT/DELETE.
-  if (request.method !== 'GET') return;
+  if (request.method !== "GET") return;
 
   const url = new URL(request.url);
 
   /* 1. Network-First for Dog CEO API requests
         (we want fresh photos when online, but can still serve
          a previously seen photo if the network is unavailable) */
-  if (API_ORIGINS.some(origin => url.origin === origin)) {
+  if (API_ORIGINS.some((origin) => url.origin === origin)) {
     event.respondWith(networkFirst(request, API_CACHE));
     return;
   }
@@ -132,7 +132,7 @@ async function cacheFirst(request, cacheName) {
     }
     return networkResponse;
   } catch (err) {
-    console.warn('[SW] Cache-First: network failed for', request.url, err);
+    console.warn("[SW] Cache-First: network failed for", request.url, err);
     // Return a minimal offline fallback HTML page.
     return offlineFallback();
   }
@@ -156,7 +156,10 @@ async function networkFirst(request, cacheName) {
     }
     return networkResponse;
   } catch (err) {
-    console.warn('[SW] Network-First: offline, checking cache for', request.url);
+    console.warn(
+      "[SW] Network-First: offline, checking cache for",
+      request.url,
+    );
     const cached = await caches.match(request);
     if (cached) return cached;
 
@@ -216,6 +219,6 @@ function offlineFallback() {
 
   return new Response(html, {
     status: 200,
-    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    headers: { "Content-Type": "text/html; charset=utf-8" },
   });
 }
